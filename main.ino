@@ -14,7 +14,6 @@ SoftwareSerial sendData(-1,10); //only send through pin 10
 
 #include <ezButton.h>
 #include <LiquidCrystal_I2C.h>
-#include <LiquidCrystal_I2C.h>
 #include <DS3231.h>
 #include <Wire.h>
 
@@ -299,7 +298,10 @@ uint8_t getFingerprintEnroll() {
       Serial.println("Image taken");
       break;
     case FINGERPRINT_NOFINGER:
+    if(printed == false){
       Serial.println(".");
+      printed = true;
+    }
       break;
     case FINGERPRINT_PACKETRECIEVEERR:
       Serial.println("Communication error");
@@ -428,7 +430,7 @@ uint8_t getFingerprintEnroll() {
     Serial.println("Unknown error");
     return p;
   }
-  printed = true;
+  printed = false;
   return true;
 }
 //Enroll
